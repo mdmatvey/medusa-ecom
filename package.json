@@ -1,0 +1,32 @@
+{
+  "name": "megobari-tea-shop",
+  "version": "1.0.0",
+  "description": "Premium European tea e-commerce platform (Monorepo)",
+  "private": true,
+  "scripts": {
+    "dev": "./dev.sh",
+    "stop": "./stop.sh",
+    "install:all": "cd backend && npm install && cd ../storefront && npm install",
+    "backend": "cd backend && npm run dev",
+    "storefront": "cd storefront && npm run dev -- --port 8000",
+    "backend:docker": "cd backend && npm run docker:up",
+    "backend:migrate": "cd backend && npx medusa db:migrate",
+    "backend:seed": "cd backend && npm run seed",
+    "build:backend": "cd backend && npm run build",
+    "build:storefront": "cd storefront && npm run build",
+    "build:all": "npm run build:backend && npm run build:storefront"
+  },
+  "workspaces": [
+    "backend",
+    "storefront"
+  ],
+  "keywords": [
+    "medusa",
+    "nextjs",
+    "ecommerce",
+    "tea",
+    "monorepo"
+  ],
+  "author": "Megobari Tea Shop",
+  "license": "UNLICENSED"
+}
