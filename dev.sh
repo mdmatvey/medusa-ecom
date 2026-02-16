@@ -5,6 +5,15 @@
 
 set -e
 
+# Load nvm if available and use Node 20+
+if [ -s "$HOME/.nvm/nvm.sh" ]; then
+    source "$HOME/.nvm/nvm.sh"
+    # Use Node 20 if available
+    if nvm ls 20 &> /dev/null; then
+        nvm use 20 &> /dev/null || true
+    fi
+fi
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -57,7 +66,7 @@ trap cleanup SIGINT SIGTERM EXIT
 
 echo -e "${MAGENTA}"
 echo "╔════════════════════════════════════════╗"
-echo "║   Megobari Tea Shop - Dev Launcher    ║"
+echo "║   Megobari Tea Shop - Dev Launcher     ║"
 echo "╚════════════════════════════════════════╝"
 echo -e "${NC}"
 
