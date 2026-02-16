@@ -1,21 +1,30 @@
-/dist
-.env
+# Backend
+backend/dist
+backend/.env
+backend/uploads
+backend/node_modules
+backend/.medusa
+backend/.cache
+backend/coverage
+backend/medusa-db.sql
+backend/build
+backend/tsconfig.tsbuildinfo
+
+# Storefront
+storefront/.next
+storefront/.env.local
+storefront/.env.production
+storefront/node_modules
+storefront/out
+storefront/.turbo
+
+# Root
 .DS_Store
-/uploads
-/node_modules
-yarn-error.log
-
 .idea
+yarn-error.log
+/node_modules
 
-coverage
-
-!src/**
-
-./tsconfig.tsbuildinfo
-medusa-db.sql
-build
-.cache
-
+# Yarn
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -23,4 +32,6 @@ build
 !.yarn/sdks
 !.yarn/versions
 
-.medusa
+# Claude
+.claude
+.agents
