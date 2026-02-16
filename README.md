@@ -1,76 +1,159 @@
-<p align="center">
-  <a href="https://www.medusajs.com">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/59018053/229103275-b5e482bb-4601-46e6-8142-244f531cebdb.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    <img alt="Medusa logo" src="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    </picture>
-  </a>
-</p>
-<h1 align="center">
-  Medusa
-</h1>
+# Megobari Tea Shop
 
-<h4 align="center">
-  <a href="https://docs.medusajs.com">Documentation</a> |
-  <a href="https://www.medusajs.com">Website</a>
-</h4>
+Premium European tea e-commerce platform built with Medusa v2 and Next.js.
 
-<p align="center">
-  Building blocks for digital commerce
-</p>
-<p align="center">
-  <a href="https://github.com/medusajs/medusa/blob/master/CONTRIBUTING.md">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="PRs welcome!" />
-  </a>
-    <a href="https://www.producthunt.com/posts/medusa"><img src="https://img.shields.io/badge/Product%20Hunt-%231%20Product%20of%20the%20Day-%23DA552E" alt="Product Hunt"></a>
-  <a href="https://discord.gg/xpCwq3Kfn8">
-    <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg" alt="Discord Chat" />
-  </a>
-  <a href="https://twitter.com/intent/follow?screen_name=medusajs">
-    <img src="https://img.shields.io/twitter/follow/medusajs.svg?label=Follow%20@medusajs" alt="Follow @medusajs" />
-  </a>
-</p>
+## 🏗️ Project Structure (Monorepo)
 
-## Compatibility
+```
+/
+├── backend/          # Medusa v2 Backend
+│   ├── src/         # API routes, modules, workflows
+│   ├── medusa-config.ts
+│   └── package.json
+│
+└── storefront/      # Next.js 16 Storefront
+    ├── app/         # App router pages
+    ├── components/  # React components
+    ├── lib/         # Utilities, hooks, SDK config
+    └── package.json
+```
 
-This starter is compatible with versions >= 2 of `@medusajs/medusa`. 
+## 🚀 Getting Started
 
-## Getting Started
+### Prerequisites
+- Node.js 20+
+- Docker & Docker Compose
+- npm or yarn
 
-Visit the [Quickstart Guide](https://docs.medusajs.com/learn/installation) to set up a server.
+### Backend Setup
 
-Visit the [Docs](https://docs.medusajs.com/learn/installation#get-started) to learn more about our system requirements.
+1. **Install dependencies:**
+```bash
+cd backend
+npm install
+```
 
-## What is Medusa
+2. **Configure environment:**
+```bash
+cp .env.example .env
+# Edit .env with your configuration
+```
 
-Medusa is a set of commerce modules and tools that allow you to build rich, reliable, and performant commerce applications without reinventing core commerce logic. The modules can be customized and used to build advanced ecommerce stores, marketplaces, or any product that needs foundational commerce primitives. All modules are open-source and freely available on npm.
+3. **Start database:**
+```bash
+npm run docker:up
+```
 
-Learn more about [Medusa’s architecture](https://docs.medusajs.com/learn/introduction/architecture) and [commerce modules](https://docs.medusajs.com/learn/fundamentals/modules/commerce-modules) in the Docs.
+4. **Run migrations:**
+```bash
+npx medusa db:migrate
+```
 
-## Build with AI Agents
+5. **Seed data (optional):**
+```bash
+npm run seed
+```
 
-### Claude Code Plugin
+6. **Start backend:**
+```bash
+npm run dev
+```
 
-If you use AI agents like Claude Code, check out the [medusa-dev Claude Code plugin](https://github.com/medusajs/medusa-claude-plugins).
+Backend runs on http://localhost:9000
+Admin dashboard: http://localhost:9000/app
 
-### Other Agents
+### Storefront Setup
 
-If you use AI agents other than Claude Code, copy the [skills directory](https://github.com/medusajs/medusa-claude-plugins/tree/main/plugins/medusa-dev/skills) into your agent's relevant `skills` directory.
+1. **Install dependencies:**
+```bash
+cd storefront
+npm install
+```
 
-### MCP Server
+2. **Get publishable API key:**
+   - Visit http://localhost:9000/app
+   - Go to Settings → Publishable API Keys
+   - Copy the key
 
-You can also add the MCP server `https://docs.medusajs.com/mcp` to your AI agents to answer questions related to Medusa. The `medusa-dev` Claude Code plugin includes this MCP server by default.
+3. **Configure environment:**
+```bash
+# Create .env.local
+NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://localhost:9000
+NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=your_key_here
+```
 
-## Community & Contributions
+4. **Start storefront (CRITICAL: Port 8000 for CORS):**
+```bash
+npm run dev -- --port 8000
+```
 
-The community and core team are available in [GitHub Discussions](https://github.com/medusajs/medusa/discussions), where you can ask for support, discuss roadmap, and share ideas.
+Storefront runs on http://localhost:8000
 
-Join our [Discord server](https://discord.com/invite/medusajs) to meet other community members.
+## ✨ Features
 
-## Other channels
+### Backend (Medusa v2)
+- Product catalog management
+- Category hierarchy
+- Cart & checkout
+- Order management
+- Admin dashboard
+- Custom API routes
 
-- [GitHub Issues](https://github.com/medusajs/medusa/issues)
-- [Twitter](https://twitter.com/medusajs)
-- [LinkedIn](https://www.linkedin.com/company/medusajs)
-- [Medusa Blog](https://medusajs.com/blog/)
+### Storefront (Next.js 16)
+- 🏠 **Homepage** with hero, featured categories, products
+- 📦 **Product pages** with variant selection, image gallery
+- 🗂️ **Category pages** with filtering and sorting
+- 🛒 **Shopping cart** with quantity management
+- 🎨 **Pastel green theme** with Tailwind v4
+- 📱 **Responsive design** with mobile menu
+- 🔗 **Medusa SDK integration** with React Query
+
+## 🎨 Design System
+
+The storefront uses a minimalistic pastel green theme:
+- Primary: Sage Green (#A8B99C)
+- Accent: Terracotta (#D4A574)
+- Background: Cream (#FAF8F3)
+- Text: Charcoal (#3A3A3A)
+
+## 📋 Remaining Features
+
+- [ ] Checkout flow implementation
+- [ ] Cart popup/mini cart
+- [ ] Order confirmation page
+- [ ] Animations and scroll effects
+- [ ] Image optimization
+- [ ] SEO enhancements
+
+## 🛠️ Development
+
+### Backend Commands
+```bash
+cd backend
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run docker:up    # Start PostgreSQL
+npm run docker:down  # Stop PostgreSQL
+```
+
+### Storefront Commands
+```bash
+cd storefront
+npm run dev -- --port 8000  # Start dev server
+npm run build              # Build for production
+npm run start              # Start production server
+```
+
+## 📚 Documentation
+
+- [Medusa v2 Docs](https://docs.medusajs.com/)
+- [Next.js 16 Docs](https://nextjs.org/docs)
+- [Tailwind CSS v4](https://tailwindcss.com/)
+
+## 🤝 Contributing
+
+This is a private project for Megobari Tea Shop.
+
+## 📄 License
+
+Proprietary - All rights reserved
