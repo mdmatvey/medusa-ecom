@@ -130,14 +130,14 @@ sleep 3
 
 # Check if database is ready
 for i in {1..30}; do
-    if docker compose -f "$BACKEND_DIR/docker-compose.yml" exec -T postgres pg_isready -U postgres > /dev/null 2>&1; then
+    if podman compose -f "$BACKEND_DIR/docker-compose.dev.yml" exec -T postgres pg_isready -U postgres > /dev/null 2>&1; then
         echo -e "${GREEN}PostgreSQL is ready!${NC}"
         break
     fi
     echo -n "."
     sleep 1
     if [ $i -eq 30 ]; then
-        echo -e "\n${RED}PostgreSQL failed to start. Check Docker logs.${NC}"
+        echo -e "\n${RED}PostgreSQL failed to start. Check Podman logs.${NC}"
         exit 1
     fi
 done

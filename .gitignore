@@ -9,6 +9,7 @@ backend/coverage
 backend/medusa-db.sql
 backend/build
 backend/tsconfig.tsbuildinfo
+backend/*.log
 
 # Storefront
 storefront/.next
@@ -17,11 +18,14 @@ storefront/.env.production
 storefront/node_modules
 storefront/out
 storefront/.turbo
+storefront/*.log
 
 # Root
 .DS_Store
 .idea
+.vscode
 yarn-error.log
+*.log
 /node_modules
 
 # Yarn

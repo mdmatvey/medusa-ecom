@@ -6,24 +6,55 @@ Premium European tea e-commerce platform built with Medusa v2 and Next.js.
 
 ```
 /
-├── backend/          # Medusa v2 Backend
-│   ├── src/         # API routes, modules, workflows
+├── backend/                    # Medusa v2 Backend
+│   ├── src/                   # API routes, modules, workflows
+│   ├── docker-compose.yml     # Full stack (production)
+│   ├── docker-compose.dev.yml # Infrastructure only (development)
 │   ├── medusa-config.ts
 │   └── package.json
 │
-└── storefront/      # Next.js 16 Storefront
-    ├── app/         # App router pages
-    ├── components/  # React components
-    ├── lib/         # Utilities, hooks, SDK config
+└── storefront/                # Next.js 16 Storefront
+    ├── app/                   # App router pages
+    ├── components/            # React components
+    ├── lib/                   # Utilities, hooks, SDK config
     └── package.json
 ```
+
+## 🔄 Development Modes
+
+**Local Development (Default)**:
+- ✅ Better for active development (hot-reload, debugging)
+- Uses `docker-compose.dev.yml` - runs only PostgreSQL & Redis in containers
+- Medusa backend runs locally via `npm run dev`
+- Next.js storefront runs locally
+
+**Full Container Mode**:
+- Uses `docker-compose.yml` - runs everything in containers
+- Useful for production-like testing
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 20+
-- Docker & Docker Compose
+- Podman & Podman Compose (or Docker & Docker Compose)
 - npm or yarn
+
+### Podman Setup
+This project uses Podman for containerization. If you have Podman installed:
+
+```bash
+# Install podman-compose if not already installed (macOS)
+brew install podman-compose
+
+# Start the Podman machine (if not running)
+podman machine start
+
+# Verify Podman is working
+podman version
+podman compose version
+```
+
+**Note:** The project uses `podman compose` commands. If you prefer Docker, the commands are compatible - just replace `podman` with `docker` in the npm scripts.
 
 ### Backend Setup
 
@@ -130,10 +161,14 @@ The storefront uses a minimalistic pastel green theme:
 ### Backend Commands
 ```bash
 cd backend
-npm run dev          # Start development server
+npm run dev          # Start development server (local)
 npm run build        # Build for production
-npm run docker:up    # Start PostgreSQL
-npm run docker:down  # Stop PostgreSQL
+npm run docker:up    # Start PostgreSQL & Redis (uses docker-compose.dev.yml)
+npm run docker:down  # Stop PostgreSQL & Redis
+
+# Full container mode (alternative)
+podman compose up -d      # Start everything in containers
+podman compose down       # Stop all containers
 ```
 
 ### Storefront Commands
@@ -153,6 +188,45 @@ npm run start              # Start production server
 ## 🤝 Contributing
 
 This is a private project for Megobari Tea Shop.
+
+## 🔧 Troubleshooting
+
+### Podman Issues
+
+**Podman machine not running:**
+```bash
+podman machine start
+```
+
+**Port conflicts:**
+```bash
+# Check what's using the port
+lsof -i :5432  # PostgreSQL
+lsof -i :9000  # Medusa Backend
+lsof -i :8000  # Storefront
+```
+
+**Podman compose not found:**
+```bash
+# macOS
+brew install podman-compose
+
+# Linux (using pip)
+pip3 install podman-compose
+```
+
+**Container access issues on macOS:**
+If you get permission errors, ensure the Podman machine has enough resources:
+```bash
+podman machine stop
+podman machine set --cpus 4 --memory 4096
+podman machine start
+```
+
+**Switching back to Docker:**
+If you need to use Docker instead, simply replace `podman` with `docker` in:
+- `backend/package.json` (docker:up and docker:down scripts)
+- `dev.sh` (the database readiness check)
 
 ## 📄 License
 
