@@ -178,9 +178,11 @@ export function useRemoveFromCart() {
       const cartId = getCartId()
       if (!cartId) throw new Error("No cart found")
 
-      // Delete line item using SDK
-      const response = await sdk.store.cart.deleteLineItem(cartId, lineItemId)
-      return response.cart
+      // Delete line item using SDK (returns a delete confirmation, not the cart)
+      await sdk.store.cart.deleteLineItem(cartId, lineItemId)
+      // Re-fetch the updated cart
+      const { cart } = await sdk.store.cart.retrieve(cartId)
+      return cart
     },
     onSuccess: (cart) => {
       queryClient.setQueryData(CART_QUERY_KEY, cart)

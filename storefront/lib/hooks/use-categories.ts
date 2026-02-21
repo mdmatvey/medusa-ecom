@@ -24,7 +24,7 @@ const CATEGORIES_QUERY_KEY = ["categories"]
  */
 async function fetchCategories(): Promise<HttpTypes.StoreProductCategory[]> {
   try {
-    const response = await sdk.store.product.category.list({
+    const response = await sdk.store.category.list({
       fields: "id,name,handle,parent_category_id,rank",
       limit: 100, // Fetch all categories (adjust if you have more)
     })
@@ -73,7 +73,7 @@ function buildCategoryTree(
   // Sort by rank (if available) or name
   const sortCategories = (cats: CategoryNode[]) => {
     cats.sort((a, b) => {
-      if (a.rank !== undefined && b.rank !== undefined) {
+      if (a.rank != null && b.rank != null) {
         return a.rank - b.rank
       }
       return (a.name || "").localeCompare(b.name || "")
@@ -130,7 +130,7 @@ export function useCategory(handle: string) {
     queryKey: ["category", handle],
     queryFn: async () => {
       try {
-        const response = await sdk.store.product.category.list({
+        const response = await sdk.store.category.list({
           fields: "id,name,handle,description,parent_category_id",
           handle,
         })

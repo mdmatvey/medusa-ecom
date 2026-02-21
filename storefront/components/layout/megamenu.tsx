@@ -27,7 +27,7 @@ interface MegaMenuProps {
 
 export function MegaMenu({ activeCategory, categories, onMouseLeave }: MegaMenuProps) {
   const [isVisible, setIsVisible] = useState(false)
-  const closeTimeoutRef = useRef<NodeJS.Timeout>()
+  const closeTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
 
   // Find active category data
   const activeCategoryData = categories.find((cat) => cat.id === activeCategory)
