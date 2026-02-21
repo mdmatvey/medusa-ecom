@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
+import type { HttpTypes } from "@medusajs/types"
 import { useCart, useUpdateLineItem, useRemoveFromCart } from "@/lib/hooks/use-cart"
 import { formatPrice } from "@/lib/hooks/use-products"
 
@@ -110,7 +111,7 @@ export default function CartPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
-            {cart.items.map((item) => (
+            {cart.items.map((item: HttpTypes.StoreCartLineItem) => (
               <div
                 key={item.id}
                 className="bg-white rounded-lg p-6 border border-gray-light"
