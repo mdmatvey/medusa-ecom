@@ -4,6 +4,12 @@ loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
 module.exports = defineConfig({
   projectConfig: {
+    // In production, Medusa defaults to SameSite=None which requires HTTPS.
+    // Override to Lax so session cookies work over HTTP.
+    cookieOptions: {
+      sameSite: "lax",
+      secure: false,
+    },
     http: {
       storeCors: process.env.STORE_CORS!,
       adminCors: process.env.ADMIN_CORS!,
