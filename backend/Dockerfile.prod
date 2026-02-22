@@ -19,10 +19,12 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# .medusa/server is a self-contained Node app with its own package.json
+# Copy compiled server output
 COPY --from=builder /build/.medusa/server ./
 
-RUN npm install
+# Reuse node_modules from the builder — avoids a slow npm install on the VM
+# on every deploy. Docker caches this layer until package.json changes.
+COPY --from=builder /build/node_modules ./node_modules
 
 EXPOSE 9000
 
