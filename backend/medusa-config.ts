@@ -109,9 +109,12 @@ module.exports = defineConfig({
                     bucket: process.env.S3_BUCKET,
                     prefix: process.env.S3_PREFIX,
                     endpoint: process.env.S3_ENDPOINT,
-                    additional_client_config: process.env.S3_FORCE_PATH_STYLE === "true"
-                      ? { forcePathStyle: true }
-                      : undefined,
+                    additional_client_config: {
+                      // Yandex Object Storage does not support AWS SDK v3 checksums
+                      requestChecksumCalculation: "WHEN_REQUIRED",
+                      responseChecksumValidation: "WHEN_REQUIRED",
+                      ...(process.env.S3_FORCE_PATH_STYLE === "true" && { forcePathStyle: true }),
+                    },
                   },
                 },
               ],
