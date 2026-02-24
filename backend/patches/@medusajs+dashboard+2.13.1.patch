@@ -1,0 +1,24 @@
+diff --git a/node_modules/@medusajs/dashboard/dist/app.js b/node_modules/@medusajs/dashboard/dist/app.js
+index 630384f..dd5c86a 100644
+--- a/node_modules/@medusajs/dashboard/dist/app.js
++++ b/node_modules/@medusajs/dashboard/dist/app.js
+@@ -110837,6 +110837,7 @@ var init_upload_media_form_item = __esm({
+                   hint: t5("products.media.uploadImagesHint"),
+                   hasError: !!form.formState.errors.media,
+                   formats: SUPPORTED_FORMATS,
++                  maxFileSize: Infinity,
+                   onUploaded
+                 }
+               ) }),
+diff --git a/node_modules/@medusajs/dashboard/src/routes/products/common/components/upload-media-form-item/upload-media-form-item.tsx b/node_modules/@medusajs/dashboard/src/routes/products/common/components/upload-media-form-item/upload-media-form-item.tsx
+index 9a052fa..f1f3d15 100644
+--- a/node_modules/@medusajs/dashboard/src/routes/products/common/components/upload-media-form-item/upload-media-form-item.tsx
++++ b/node_modules/@medusajs/dashboard/src/routes/products/common/components/upload-media-form-item/upload-media-form-item.tsx
+@@ -121,6 +121,7 @@ export const UploadMediaFormItem = ({
+                   hint={t("products.media.uploadImagesHint")}
+                   hasError={!!form.formState.errors.media}
+                   formats={SUPPORTED_FORMATS}
++                  maxFileSize={Infinity}
+                   onUploaded={onUploaded}
+                 />
+               </Form.Control>
