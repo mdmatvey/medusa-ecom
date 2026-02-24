@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useParams } from "next/navigation"
 import { useCategory } from "@/lib/hooks/use-categories"
 import { useProducts } from "@/lib/hooks/use-products"
+import { useDefaultRegion } from "@/lib/hooks/use-regions"
 import { ProductGrid } from "@/components/sections/product-grid"
 import { ProductFilters, type FilterState } from "@/components/sections/product-filters"
 
@@ -23,6 +24,7 @@ export default function CategoryPage() {
   const handle = params.handle as string
 
   const { data: category, isLoading: categoryLoading } = useCategory(handle)
+  const { region } = useDefaultRegion()
   const [filters, setFilters] = useState<FilterState>({ categories: [] })
   const [page, setPage] = useState(0)
   const limit = 12
@@ -37,6 +39,7 @@ export default function CategoryPage() {
     offset: page * limit,
     category_id: filters.categories.length > 0 ? filters.categories : category ? [category.id] : undefined,
     order: filters.sort || undefined,
+    region_id: region?.id,
   }
 
   const { data, isLoading: productsLoading } = useProducts(queryParams)
