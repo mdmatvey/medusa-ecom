@@ -5,6 +5,7 @@ import { useParams } from "next/navigation"
 import Image from "next/image"
 import { useProduct, formatPrice, useRelatedProducts } from "@/lib/hooks/use-products"
 import { useAddToCart } from "@/lib/hooks/use-cart"
+import { useDefaultRegion } from "@/lib/hooks/use-regions"
 import { ProductCard } from "@/components/ui/product-card"
 
 /**
@@ -28,7 +29,8 @@ export default function ProductDetailsPage() {
   const params = useParams()
   const handle = params.handle as string
 
-  const { data: product, isLoading } = useProduct(handle)
+  const { region } = useDefaultRegion()
+  const { data: product, isLoading } = useProduct(handle, region?.id)
   const addToCart = useAddToCart()
 
   const [selectedVariantId, setSelectedVariantId] = useState<string>("")
