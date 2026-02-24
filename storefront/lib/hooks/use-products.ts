@@ -41,9 +41,12 @@ async function fetchProducts(
   count: number
 }> {
   try {
+    const fields = params.region_id
+      ? "id,title,handle,description,thumbnail,images,variants,variants.calculated_price,options,collection_id,tags"
+      : "id,title,handle,description,thumbnail,images,variants,options,collection_id,tags"
+
     const response = await sdk.store.product.list({
-      fields:
-        "id,title,handle,description,thumbnail,images,variants,variants.calculated_price,options,collection_id,tags",
+      fields,
       limit: params.limit || 12,
       offset: params.offset || 0,
       category_id: params.category_id,
@@ -118,10 +121,9 @@ export function useFeaturedProducts(limit: number = 8) {
         // Fetch products - can be filtered by collection or tags in production
         // For now, just get latest products
         const response = await sdk.store.product.list({
-          fields:
-            "id,title,handle,description,thumbnail,variants,variants.calculated_price",
+          fields: "id,title,handle,description,thumbnail,variants",
           limit,
-          order: "-created_at", // Newest first
+          order: "-created_at",
         })
 
         return response.products || []
@@ -144,8 +146,8 @@ export function useRelatedProducts(productId: string, collectionId?: string, lim
     queryFn: async () => {
       try {
         const params: Record<string, any> = {
-          fields: "id,title,handle,thumbnail,variants,variants.calculated_price",
-          limit: limit + 1, // Fetch one extra to exclude current product
+          fields: "id,title,handle,thumbnail,variants",
+          limit: limit + 1,
         }
 
         // Filter by collection if available

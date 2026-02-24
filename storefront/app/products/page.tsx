@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useProducts } from "@/lib/hooks/use-products"
+import { useDefaultRegion } from "@/lib/hooks/use-regions"
 import { ProductGrid } from "@/components/sections/product-grid"
 import { ProductFilters, type FilterState } from "@/components/sections/product-filters"
 
@@ -21,15 +22,15 @@ export default function ProductsPage() {
   const [filters, setFilters] = useState<FilterState>({ categories: [] })
   const [page, setPage] = useState(0)
   const limit = 12
+  const { region } = useDefaultRegion()
 
   // Build query params from filters
   const queryParams = {
     limit,
     offset: page * limit,
     category_id: filters.categories.length > 0 ? filters.categories : undefined,
-    // Note: Price filtering and in-stock filtering would need backend support
-    // For now, we'll fetch all and can filter client-side if needed
     order: filters.sort || undefined,
+    region_id: region?.id,
   }
 
   const { data, isLoading } = useProducts(queryParams)
