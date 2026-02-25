@@ -32,7 +32,7 @@ async function processFile(file: Express.Multer.File): Promise<{
     return {
       filename: `${basename}.webp`,
       mimeType: "image/webp",
-      content: compressed.toString("binary"),
+      content: compressed.toString("base64"),
       access: "public",
     }
   }
@@ -40,7 +40,7 @@ async function processFile(file: Express.Multer.File): Promise<{
   return {
     filename: file.originalname,
     mimeType: file.mimetype,
-    content: file.buffer.toString("binary"),
+    content: file.buffer.toString("base64"),
     access: "public",
   }
 }
