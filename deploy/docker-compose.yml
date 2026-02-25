@@ -79,6 +79,10 @@ services:
       S3_PREFIX: ${S3_PREFIX:-uploads/}
       S3_ENDPOINT: ${S3_ENDPOINT:-}
       S3_FORCE_PATH_STYLE: ${S3_FORCE_PATH_STYLE:-false}
+      # Used by the local file provider to generate public URLs when S3 is not configured
+      BACKEND_URL: ${BACKEND_URL:-${NEXT_PUBLIC_MEDUSA_BACKEND_URL:-http://localhost:9000}}
+    volumes:
+      - medusa_static:/app/static
     # Run migrations before starting (only server instance should run migrations)
     command: sh -c "npm run predeploy && npm run start"
     networks:
@@ -181,6 +185,7 @@ services:
 volumes:
   postgres_data:
   redis_data:
+  medusa_static:
 
 networks:
   internal:
