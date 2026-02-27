@@ -26,11 +26,11 @@
     "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit"
   },
   "dependencies": {
-    "@medusajs/admin-sdk": "2.13.1",
-    "@medusajs/caching-redis": "2.13.1",
-    "@medusajs/cli": "2.13.1",
-    "@medusajs/framework": "2.13.1",
-    "@medusajs/medusa": "2.13.1",
+    "@medusajs/admin-sdk": "2.13.2",
+    "@medusajs/caching-redis": "2.13.2",
+    "@medusajs/cli": "2.13.2",
+    "@medusajs/framework": "2.13.2",
+    "@medusajs/medusa": "2.13.2",
     "sharp": "^0.34.5"
   },
   "devDependencies": {
