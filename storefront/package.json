@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@medusajs/js-sdk": "^2.13.1",
+    "@medusajs/js-sdk": "^2.13.2",
     "@tanstack/react-query": "^5.90.21",
     "next": "16.1.6",
     "react": "19.2.3",
