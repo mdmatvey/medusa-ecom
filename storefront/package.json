@@ -12,8 +12,8 @@
     "@medusajs/js-sdk": "^2.13.1",
     "@tanstack/react-query": "^5.90.21",
     "next": "16.1.6",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
   },
   "devDependencies": {
     "@medusajs/types": "^2.13.1",
